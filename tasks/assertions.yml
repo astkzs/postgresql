@@ -1,0 +1,14 @@
+---
+- name: "Ensure correct values for postgresql_password_encryption for postgresql version < 10"
+  assert:
+    that:
+      - postgresql_password_encryption in ['on','off']
+    fail_msg: "postgresql_password_encryption must be 'on' or 'off' for postgresql version < 10"
+  when: postgresql_version is version_compare('10', '<')
+
+- name: "Ensure correct values for postgresql_password_encryption for postgresql version >= 10"
+  assert:
+    that:
+      - postgresql_password_encryption in ['on','off','md5','scram-sha-256']
+    fail_msg: "postgresql_password_encryption must be 'on','off','md5' or 'scram-sha-256' for postgresql version >= 10"
+  when: postgresql_version is version_compare('10', '>=')
