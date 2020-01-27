@@ -13,7 +13,7 @@
     owner: "{{ postgresql_service_user }}"
     group: "{{ postgresql_service_group }}"
     state: directory
-    mode: 0700
+    mode: "{{ postgresql_data_directory_permissions }}"
   register: pgdata_dir_exist
 
 - name: PostgreSQL | Make sure the postgres WAL directory exists
@@ -22,7 +22,7 @@
     owner: "{{ postgresql_service_user }}"
     group: "{{ postgresql_service_group }}"
     state: directory
-    mode: 0700
+    mode: "{{ postgresql_wal_directory_permissions }}"
   register: pgwal_dir_exist
   when: postgresql_wal_directory != ""
 
@@ -32,7 +32,7 @@
     owner: "{{ postgresql_service_user }}"
     group: "{{ postgresql_service_group }}"
     state: directory
-    mode: 0700
+    mode: "{{ postgresql_log_directory_permissions }}"
   register: pglog_dir_exist
   when: postgresql_log_directory != "pg_log"
 
@@ -123,7 +123,7 @@
     path: "{{ postgresql_conf_directory }}"
     owner: "{{ postgresql_service_user }}"
     group: "{{ postgresql_service_group }}"
-    mode: 0700
+    mode: "{{ postgresql_conf_directory_permissions }}"
     state: directory
 
 - name: PostgreSQL | Update configuration - pt. 1 (pg_hba.conf)
@@ -191,7 +191,7 @@
     state: directory
     owner: "{{ postgresql_service_user }}"
     group: "{{ postgresql_service_group }}"
-    mode: 0755
+    mode: "{{ postgresql_conf_confd_directory_permissions }}"
 
 - name: PostgreSQL | Ensure the systemd directory for PostgreSQL exists | RedHat
   file:

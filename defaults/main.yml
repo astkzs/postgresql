@@ -93,6 +93,8 @@ postgresql_pg_ident:
 
 # Location of postgres configuration files here
 postgresql_conf_directory: "/etc/postgresql/{{ postgresql_version }}/{{ postgresql_cluster_name }}"
+postgresql_conf_directory_permissions: 0700
+postgresql_conf_confd_directory_permissions: 0755
 # HBA (Host Based Authentication) file
 postgresql_hba_file: "{{ postgresql_conf_directory }}/pg_hba.conf"
 # Ident configuration file
@@ -100,7 +102,9 @@ postgresql_ident_file: "{{ postgresql_conf_directory }}/pg_ident.conf"
 # Use data in another directory
 postgresql_varlib_directory_name: "postgresql"
 postgresql_data_directory: "/var/lib/{{ postgresql_varlib_directory_name }}/{{ postgresql_version }}/{{ postgresql_cluster_name }}"
+postgresql_data_directory_permissions: 0700
 postgresql_wal_directory: ""
+postgresql_wal_directory_permissions: 0700
 postgresql_pid_directory: "/var/run/postgresql"
 # If external_pid_file is not explicitly set, on extra PID file is written
 postgresql_external_pid_file: "{{ postgresql_pid_directory }}/{{ postgresql_version }}-{{ postgresql_cluster_name }}.pid"
@@ -140,7 +144,7 @@ postgresql_ssl_prefer_server_ciphers: on
 postgresql_ssl_ecdh_curve: "prime256v1"
 postgresql_ssl_min_protocol_version: "TLSv1"                        # (>= 12)
 postgresql_ssl_max_protocol_version: ""                             # (>= 12)
-postgresql_ssl_dh_params_file: ""                                   # (>= 10)  
+postgresql_ssl_dh_params_file: ""                                   # (>= 10)
 postgresql_ssl_passphrase_command: ""                               # (>= 11)
 postgresql_ssl_passphrase_command_supports_reload: off              # (>= 11)
 postgresql_ssl_renegotiation_limit: 512MB                           # amount of data between renegotiations
@@ -372,7 +376,7 @@ postgresql_wal_receiver_timeout: 60s
 # time to wait before retrying to retrieve WAL after a failed attempt
 postgresql_wal_retrieve_retry_interval: 5s # (>= 9.5)
 
-# - Subscribers - (>= 10) 
+# - Subscribers - (>= 10)
 
 # These settings are ignored on a publisher.
 
@@ -465,6 +469,7 @@ postgresql_logging_collector:          off
 
 # Directory where log files are written, can be absolute or relative to PGDATA
 postgresql_log_directory:              "pg_log"
+postgresql_log_directory_permissions: 0700
 # Log file name pattern, can include strftime() escapes
 postgresql_log_filename:               "postgresql-%Y-%m-%d_%H%M%S.log"
 postgresql_log_file_mode:              "0600" # begin with 0 to use octal notation
