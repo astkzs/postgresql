@@ -53,6 +53,10 @@
 - import_tasks: users_privileges.yml
   tags: [postgresql, postgresql-users]
 
+- import_tasks: users_membership.yml
+  when: {{ ansible_version.full is version('2.8.0', '>=') }}
+  tags: [postgresql, postgresql-users]
+
 - import_tasks: monit.yml
   when: monit_protection is defined and monit_protection == true
   tags: [postgresql, postgresql-monit]
