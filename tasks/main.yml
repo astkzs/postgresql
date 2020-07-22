@@ -41,6 +41,8 @@
 - import_tasks: configure.yml
   tags: [postgresql, postgresql-configure]
 
+- meta: flush_handlers
+
 - import_tasks: users.yml
   tags: [postgresql, postgresql-users]
 
@@ -54,7 +56,6 @@
   tags: [postgresql, postgresql-users]
 
 - import_tasks: users_membership.yml
-  when: ansible_version.full is version('2.8.0', '>=')
   tags: [postgresql, postgresql-users]
 
 - import_tasks: monit.yml

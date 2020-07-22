@@ -129,7 +129,7 @@ postgresql_superuser_reserved_connections: 3
 postgresql_unix_socket_directory: ""    # (<= 9.2)
 postgresql_unix_socket_directories:     # (>= 9.3)
   - "{{ postgresql_pid_directory }}"
-  - "{{ __postgresql_unix_socket_additional_directories | default(omit, true) }}"
+  - "{{ __postgresql_unix_socket_additional_directories | default([],True) }}"
 
 postgresql_unix_socket_group: ""
 postgresql_unix_socket_permissions: "0777" # begin with 0 to use octal notation
@@ -160,7 +160,7 @@ postgresql_ssl_cert_file: "/etc/ssl/certs/ssl-cert-snakeoil.pem"    # (>= 9.2)
 postgresql_ssl_key_file: "/etc/ssl/private/ssl-cert-snakeoil.key"   # (>= 9.2)
 postgresql_ssl_ca_file: ""                                          # (>= 9.2)
 postgresql_ssl_crl_file: ""                                         # (>= 9.2)
-postgresql_password_encryption: on
+postgresql_password_encryption: 'on'
 postgresql_db_user_namespace: off
 postgresql_row_security: off                                        # (>= 9.5)
 
@@ -607,7 +607,7 @@ postgresql_track_io_timing:           off   # (>= 9.2)
 postgresql_track_functions:           "none" # none, pl, all
 postgresql_track_activity_query_size: 1024
 postgresql_update_process_title:      on
-postgresql_stats_temp_directory:      "pg_stat_tmp"
+postgresql_stats_temp_directory:      "{{ postgresql_pid_directory }}/{{ postgresql_version }}-{{ postgresql_cluster_name  }}.pg_stat_tmp"
 
 
 # - Statistics Monitoring -

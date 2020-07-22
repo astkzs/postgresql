@@ -9,6 +9,9 @@ postgresql_databases:
 
 postgresql_users:
 
+  - name: group_role_1
+
+
   # postgresql >=10 does not accept unencrypted passwords
   - name: baz
     pass: md51a1dc91c907325c69271ddf0c944bc72
@@ -21,8 +24,13 @@ postgresql_users:
   - name: zabaz
 
 postgresql_user_privileges:
+  - name: group_role_1
+    role_attr_flags: NOLOGIN
+
   - name: baz
     db: foobar
+    groups:
+      - group_role_1
 
 postgresql_database_schemas:
   - database: foobar

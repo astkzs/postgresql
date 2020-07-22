@@ -9,3 +9,5 @@ __postgresql_ext_postgis_deps:
 
 __postgresql_fdw_mysql_packages: "postgresql-{{ postgresql_version }}-mysql-fdw"
 __postgresql_fdw_ogr_packages: "postgresql-{{ postgresql_version }}-ogr-fdw"
+
+__postgresql_unix_socket_additional_directories: []

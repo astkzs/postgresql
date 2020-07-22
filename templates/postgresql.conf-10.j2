@@ -64,7 +64,7 @@ listen_addresses = '{{postgresql_listen_addresses|join(',')}}'		# what IP addres
 port = {{postgresql_port}}				# (change requires restart)
 max_connections = {{postgresql_max_connections}}			# (change requires restart)
 superuser_reserved_connections = {{postgresql_superuser_reserved_connections}}	# (change requires restart)
-unix_socket_directories = '{{postgresql_unix_socket_directories|join(',')}}'	# comma-separated list of directories
+unix_socket_directories = '{{postgresql_unix_socket_directories | flatten | join(',')}}'	# comma-separated list of directories
 					# (change requires restart)
 unix_socket_group = '{{postgresql_unix_socket_group}}'			# (change requires restart)
 unix_socket_permissions = {{postgresql_unix_socket_permissions}}		# begin with 0 to use octal notation
