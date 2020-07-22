@@ -39,11 +39,26 @@ Vagrant.configure('2') do |config|
 
   end
 
-  config.vm.define 'wheezy64.local' do |machine|
+  config.vm.define 'stretch64.local' do |machine|
 
-    machine.vm.box = "debian/wheezy64"
+    machine.vm.box = "debian/stretch64"
     machine.vm.network :private_network, ip: '192.168.88.21'
-    machine.vm.hostname = 'wheezy64.local'
+    machine.vm.hostname = 'stretch64.local'
+
+    machine.vm.provision 'ansible' do |ansible|
+      ansible.playbook = 'tests/playbook.yml'
+      ansible.verbose = "vvv"
+      ansible.become = true
+      ansible.inventory_path = 'vagrant-inventory'
+      ansible.host_key_checking = false
+    end
+
+  end
+  config.vm.define 'buster64.local' do |machine|
+
+    machine.vm.box = "debian/buster64"
+    machine.vm.network :private_network, ip: '192.168.88.22'
+    machine.vm.hostname = 'buster64.local'
 
     machine.vm.provision 'ansible' do |ansible|
       ansible.playbook = 'tests/playbook.yml'
