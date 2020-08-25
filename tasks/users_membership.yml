@@ -1,7 +1,7 @@
 # file: postgresql/tasks/users_membership.yml
 - name: PostgreSQL | Update the user membership
   postgresql_membership:
-    group: "{{ item.groups }}"
+    groups: "{{ item.groups }}"
     db: "{{ item.db | default(omit) }}"
     port: "{{ postgresql_port }}"
     target_roles: "{{ item.name }}"
